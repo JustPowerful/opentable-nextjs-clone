@@ -21,7 +21,8 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
       <button
         onClick={() => {
           if (location === "banana") return;
-          router.push("/search");
+          router.push(`/search?city=${location}`);
+          setLocation("");
         }}
         className="rounded bg-red-600 px-9 py-2 text-white"
       >
