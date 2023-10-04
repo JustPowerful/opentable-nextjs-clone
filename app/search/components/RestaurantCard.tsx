@@ -33,7 +33,7 @@ const RestaurantCard: FC<RestaurantCardProps> = ({ restaurant }) => {
           </div>
         </div>
         <div className="text-red-600">
-          <Link href="/restaurant/milestones-stones">
+          <Link href={`/restaurant/${restaurant.slug}`}>
             View more information
           </Link>
         </div>
