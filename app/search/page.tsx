@@ -53,6 +53,7 @@ const fetchRestaurants = async (searchParams: SearchParams) => {
     cuisine: true,
     location: true,
     slug: true,
+    reviews: true,
   };
 
   if (!searchParams.city && !searchParams.cuisine && !searchParams.price) {
@@ -96,7 +97,7 @@ const page: FC<pageProps> = async ({ searchParams }) => {
           {restaurants.length > 0 ? (
             <>
               {restaurants.map((restaurant) => (
-                <RestaurantCard restaurant={restaurant} />
+                <RestaurantCard restaurant={restaurant} key={restaurant.id} />
               ))}
             </>
           ) : (

@@ -1,0 +1,17 @@
+version: "1.0"
+
+services:
+  postgres:
+    container_name: opentable
+    image: postgres:13
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: opentable
+      POSTGRES_PASSWORD: opentable
+      POSTGRES_DB: opentable
+    networks:
+      - opentable
+
+networks:
+  opentable:

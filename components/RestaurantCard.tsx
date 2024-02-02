@@ -4,6 +4,7 @@ import { Cuisine, Location, PRICE } from "@prisma/client";
 
 import { RestaurantCardType } from "@/app/page";
 import Price from "./Price";
+import Stars from "./Stars";
 
 interface Props {
   restaurant: RestaurantCardType;
@@ -17,8 +18,11 @@ const RestaurantCard: FC<Props> = ({ restaurant }) => {
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
           <div className="flex items-start">
-            <div className="flex mb-2">*****</div>
-            <p className="ml-2">77 reviews</p>
+            <Stars reviews={restaurant.reviews} />
+            <p className="ml-2">
+              {restaurant.reviews.length} review
+              {restaurant.reviews.length > 1 && "s"}
+            </p>
           </div>
           <div className="flex text-reg font-light capitalize">
             <p className=" mr-3">{restaurant.cuisine.name}</p>
