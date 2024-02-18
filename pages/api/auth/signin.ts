@@ -4,6 +4,8 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import * as jose from "jose";
 
+import { setCookie } from "cookies-next";
+
 const prisma = new PrismaClient();
 
 export default async function handler(
@@ -58,7 +60,6 @@ export default async function handler(
     }
 
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-
     const alg = "HS256";
     const token = await new jose.SignJWT({
       email: userWithEmail.email,
@@ -66,8 +67,15 @@ export default async function handler(
       .setProtectedHeader({ alg })
       .setExpirationTime("1h")
       .sign(secret);
+    setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
 
-    return res.status(200).json({ token: token });
+    return res.status(200).json({
+      firstName: userWithEmail.first_name,
+      lastName: userWithEmail.last_name,
+      email: userWithEmail.email,
+      phone: userWithEmail.phone,
+      city: userWithEmail.city,
+    });
   }
 
   return res.status(404).json("Unknown endpoint");

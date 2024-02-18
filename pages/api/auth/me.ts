@@ -65,7 +65,17 @@ export default async function handler(
     },
   });
 
+  if (!user) {
+    return res.status(401).json({
+      errorMessage: "User not found",
+    });
+  }
+
   return res.json({
-    user,
+    id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    phone: user.phone,
+    city: user.city,
   });
 }
